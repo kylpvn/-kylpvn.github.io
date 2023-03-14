@@ -1,0 +1,62 @@
+// This function is called when the user clicks the "Add to Cart" button
+function addToCart(songId) {
+  // Add the song to the cart
+  addSongToCart(songId);
+  
+  // Update the cart count
+  updateCartCount();
+  
+  // Show a success message
+  showSuccessMessage("Song added to cart!");
+}
+
+// This function adds a song to the cart
+function addSongToCart(songId) {
+  // Get the current cart from local storage
+  var cart = JSON.parse(localStorage.getItem("cart"));
+  
+  // If the cart doesn't exist, create an empty array
+  if (!cart) {
+    cart = [];
+  }
+  
+  // Add the song to the cart
+  cart.push(songId);
+  
+  // Save the updated cart to local storage
+  localStorage.setItem("cart", JSON.stringify(cart));
+}
+
+// This function updates the cart count displayed on the page
+function updateCartCount() {
+  // Get the current cart from local storage
+  var cart = JSON.parse(localStorage.getItem("cart"));
+  
+  // If the cart doesn't exist, create an empty array
+  if (!cart) {
+    cart = [];
+  }
+  
+  // Get the cart count element
+  var cartCountEl = document.getElementById("cart-count");
+  
+  // Update the cart count
+  cartCountEl.innerHTML = cart.length;
+}
+
+// This function shows a success message
+function showSuccessMessage(message) {
+  // Get the success message element
+  var successMessageEl = document.getElementById("success-message");
+  
+  // Update the success message text
+  successMessageEl.innerHTML = message;
+  
+  // Show the success message
+  successMessageEl.style.display = "block";
+  
+  // Hide the success message after 3 seconds
+  setTimeout(function() {
+    successMessageEl.style.display = "none";
+  }, 3000);
+}
